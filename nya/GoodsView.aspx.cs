@@ -23,7 +23,7 @@ namespace nya
                 Response.Redirect("default.aspx");
             username.Text = Session["username"].ToString();
             string goodid = Session["GoodID"].ToString();
-            MiaoImage.ImageUrl = "image/" + goodid + ".jpg";
+            MiaoImage.ImageUrl = @"~/Image/" + goodid + ".jpg";
             string TempSql = "select * from goods where goodnum = " + goodid;
             string ConStr = WebConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             SqlConnection con = new SqlConnection(ConStr);

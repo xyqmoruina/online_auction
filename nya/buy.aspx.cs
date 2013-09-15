@@ -24,7 +24,7 @@ namespace nya
             int flag = 0;
             username.Text = Session["username"].ToString();
             string goodid = Session["GoodID"].ToString();
-            GoodImage.ImageUrl = "image/" + goodid + ".jpg";
+            GoodImage.ImageUrl = "~/image/" + goodid + ".jpg";
             Logo.ImageUrl = "/nya.jpg";
             string TempSql = "select * from goods where goodnum = " + goodid;
             string ConStr = WebConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;

@@ -45,7 +45,7 @@ namespace nya
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["username"] == null)
-                Response.Redirect("default.aspx");
+                Response.Redirect("default.aspx");//保证只有用户登录才可使用，设计很好
             Label1.Visible = false;
             string username = Session["username"].ToString();
             //this.Session["username"] = username;
@@ -65,7 +65,10 @@ namespace nya
             string newweb = "UserInfo.aspx";
             Response.Redirect(newweb);
         }
-
+        /// <summary>
+        /// 得到订单数目
+        /// </summary>
+        /// <returns> </returns>
         protected int getOrderID()
         {
             int i = 0;
@@ -89,7 +92,7 @@ namespace nya
         {
             int newOrderid = getOrderID();
             string TempSql = "insert into [order] values(" + newOrderid.ToString() + ", '" + saler + "', '"
-                + cons + "'," + goodid + ", 0, null, " + price + ")";
+                + cons + "',1," + goodid + ", 0, null, " + price + ")";//尚不清楚state的作用！！！
             string ConStr = WebConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             SqlConnection con = new SqlConnection(ConStr);
             SqlCommand cmd = new SqlCommand(TempSql, con);
@@ -122,6 +125,7 @@ namespace nya
                 }
                 else
                 {
+                    //goodid=0
                     con.Close();
                     return 0;
                 }
@@ -141,7 +145,7 @@ namespace nya
                 SqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    if (DateTime.Parse(dr[8].ToString()) <= curTime && dr[11].ToString() != "1")
+                    if (DateTime.Parse(dr[8].ToString()) <= curTime && dr[11].ToString() != "1")//订单到期并且最高出价不等于1 ？
                     {
                         if (closeGood(dr[0].ToString()) != 0)
                             createOrder(dr[0].ToString(), dr[1].ToString(), dr[10].ToString(), dr[5].ToString());
@@ -217,6 +221,7 @@ namespace nya
             switch (e.Row.RowType)
             {
                 case DataControlRowType.DataRow:
+                    //放置鼠标变色
                     e.Row.Attributes.Add("onmouseover","c=this.style.backgroundColor;this.style.backgroundColor='#999999'");
                     e.Row.Attributes.Add("onmouseout","this.style.backgroundColor=c");
                     e.Row.Attributes.Add("style", "cursor:pointer");

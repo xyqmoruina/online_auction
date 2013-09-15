@@ -124,7 +124,7 @@ namespace nya
                 Lea = 0;
             }
             string nyaboxx = NyaBox.Text;
-            if (nyaboxx != "喵喵喵")
+            if (nyaboxx != "2")
             {
                 IsFinishLabal.Text = "验证问题回答错误";
                 Lea = 0;

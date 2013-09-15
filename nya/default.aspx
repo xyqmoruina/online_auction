@@ -17,8 +17,8 @@
         </style>
 </head>
 <body bgcolor="#0d7bd5" >
-    <form id="form1" runat="server">
-    <div class="style1">
+    <form id="form1" runat="server"  defaultbutton="loginbotton">
+    <div class="style1" dir="ltr">
     
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     
@@ -41,6 +41,7 @@
             style="margin-left: 388px" Width="200px" />
         <br />
         <br />
+        <asp:Label ID="Label1" runat="server" Text="账号："></asp:Label>
 &nbsp;<asp:TextBox ID="UserNameBox" runat="server" BorderColor="#2993EF" 
             BorderStyle="Solid" Height="40px" style="font-family: 微软雅黑; font-size: medium" 
             Width="240px"></asp:TextBox>
@@ -50,8 +51,9 @@
     <br />
     &nbsp;&nbsp;&nbsp;
     <br />
+        <asp:Label ID="Label2" runat="server" Text="密码："></asp:Label>
     &nbsp;<asp:TextBox ID="PassWordBox" runat="server" TextMode="Password" Width="240px" 
-            BorderColor="#2993EF" BorderStyle="Solid" Height="40px" 
+            BorderColor="#2993EF" BorderStyle="Solid" Height="38px" 
             style="font-family: 微软雅黑; font-size: medium"></asp:TextBox>
 &nbsp;<br />
         <br />

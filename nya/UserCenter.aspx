@@ -34,7 +34,7 @@
     </style>
 </head>
 <body style="font-size: medium" background="2.gif">
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" defaultbutton="SearchButton">
     <div class="style2" 
         
         style="background-color: #0D7BD5; width: 1350px; margin-left: 0px; height: 50px; margin-top: 0px;">
@@ -65,10 +65,10 @@
             BackColor="#0D7BD5" BorderColor="#0066FF" BorderStyle="Solid" 
             CssClass="style4" />
         <span class="style3">&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-        <asp:Button ID="LogOut" runat="server" Height="30px" Text="注销" Width="50px" 
+&nbsp;&nbsp;<asp:Button ID="LogOut" runat="server" Height="30px" Text="注销" Width="50px" 
             onclick="LogOut_Click" TabIndex="6" BackColor="#0D7BD5" 
             BorderColor="#0066FF" BorderStyle="Solid" CssClass="style4" />
+        &nbsp;&nbsp;&nbsp; </span>
 &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;</div>
          <div>
              <br />
@@ -135,7 +135,9 @@
         
         
         
-        SelectCommand="SELECT goodnum, goodname, variety, description, currentprice FROM goods WHERE ((description LIKE '%' + @description + '%') AND (issaled &lt;&gt; 1 OR issaled IS NULL)) OR ((issaled &lt;&gt; 1 OR issaled IS NULL) AND (goodname LIKE '%' + @goodname + '%')) OR ( (issaled &lt;&gt; 1 OR issaled IS NULL) AND (variety LIKE '%' + @variety + '%')) ORDER BY goodname, variety, description">
+        
+        SelectCommand="SELECT goodnum, goodname, variety, description, currentprice FROM goods WHERE ((description LIKE '%' + @description + '%') AND (issaled &lt;&gt; 1 OR issaled IS NULL)) OR ((issaled &lt;&gt; 1 OR issaled IS NULL) AND (goodname LIKE '%' + @goodname + '%')) OR ( (issaled &lt;&gt; 1 OR issaled IS NULL) AND (variety LIKE '%' + @variety + '%')) ORDER BY goodname, variety, description" 
+        onselecting="SqlDataSource1_Selecting">
         <SelectParameters>
             <asp:ControlParameter ControlID="SearchBox" Name="description" 
                 PropertyName="Text" />

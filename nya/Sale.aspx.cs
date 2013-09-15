@@ -95,7 +95,7 @@ namespace nya
                 //Label1.Text = NyaTime;
                 string InsertSql = "insert into goods values(" + id + ",'" + username + "','"
                     + goodvari + "','" + description + "','" + goodprice + "','" + goodprice + "'"
-                    + ",'" + goodname + "'," + "0" + ",'" + NNN.ToString() + "','" + NyaTime + "',null, null)";
+                    + ",'" + goodname + "'," + "1" + ",'" + NNN.ToString() + "','" + NyaTime + "',null, null)";//更改state为待发货
                 string ConStr2 = WebConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
                 SqlConnection con2 = new SqlConnection(ConStr2);
                 SqlCommand InsertCommand = new SqlCommand(InsertSql, con2);
@@ -114,7 +114,7 @@ namespace nya
 
         protected void UpLoad_Click(object sender, EventArgs e)
         {
-            string savepath = @"C:\Users\IVA YANG\Desktop\MyWebsite\nya\Image\";
+            string savepath = @"~/Image/";
             string filetype = string.Empty;
             if (!Directory.Exists(savepath))
             {
@@ -144,7 +144,7 @@ namespace nya
                     savepath += id;
                     savepath += ".jpg"; 
                     ImageUp.SaveAs(savepath);
-                    GoodImage.ImageUrl = "image/" + id + ".jpg";
+                    GoodImage.ImageUrl = @"~/Image/" + id + ".jpg";
                 }
                 else
                 {
