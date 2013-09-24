@@ -30,6 +30,11 @@ namespace nya
             Response.Redirect("UserCenter.aspx");
         }
 
+        /// <summary>
+        /// 注销
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Button1_Click(object sender, EventArgs e)
         {
             Session["username"] = null;

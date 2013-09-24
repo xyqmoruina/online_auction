@@ -21,6 +21,7 @@
             margin-left: 41px;
             text-align: center;
             margin-right: 72px;
+            position: relative;
         }
         .style3
         {

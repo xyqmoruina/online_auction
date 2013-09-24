@@ -52,6 +52,7 @@ namespace nya
             urname.Text = username;
             Logo.ImageUrl = "/nya.jpg";
             checkOrders();
+            FastView.Visible = false;
         }
 
         protected void SaleButton_Click(object sender, EventArgs e)
@@ -104,6 +105,12 @@ namespace nya
             }
         }
 
+        /// <summary>
+        /// 检查该商品是否有竞拍，并将该商品设为已售出，返回1表示正常售出，0表示无人竞拍
+        /// </summary>
+        /// <param name="goodid"></param>
+        /// <returns>@是否成功
+        /// </returns>
         protected int closeGood(string goodid)
         {
             string TempSql = "update goods set issaled=1 where goodnum='" + goodid + "'";
@@ -125,7 +132,7 @@ namespace nya
                 }
                 else
                 {
-                    //goodid=0
+                    //商品出价次数为0
                     con.Close();
                     return 0;
                 }
@@ -158,6 +165,7 @@ namespace nya
 
         protected void SearchButton_Click(object sender, EventArgs e)
         {
+            GridView2.Visible = false;
             checkGoods();
             if (SearchBox.Text.Length != 0)
             {
@@ -176,30 +184,12 @@ namespace nya
             Response.Redirect(newweb);
         }
 
-        protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-
-        }
-
-        protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            GridViewRow row = GridView1.SelectedRow;
-            string id = row.Cells[0].Text.ToString();
-            if (id == "商品编号")
-                return;
-            this.Session["GoodID"] = id;
-            Response.Redirect("GoodsView.aspx");
-        }
-
         protected void UserPocket_Click(object sender, EventArgs e)
         {
             Response.Redirect("MyGoods.aspx");
         }
 
-        protected void SearchBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+       
 
         protected void Button1_Click(object sender, EventArgs e)
         {
@@ -211,11 +201,7 @@ namespace nya
             Response.Redirect("Order.aspx");
         }
 
-        protected void GridView1_RowCreated(object sender, GridViewRowEventArgs e)
-        {
-            
-        }
-
+      
         protected void GridView1_RowDataBound1(object sender, GridViewRowEventArgs e)
         {
             switch (e.Row.RowType)
@@ -237,11 +223,50 @@ namespace nya
             }
         }
 
-        protected void GridView1_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
+        protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            GridViewRow row = GridView1.SelectedRow;
+            string id = row.Cells[0].Text.ToString();
+            if (id == "商品编号")
+                return;
+            this.Session["GoodID"] = id;
+            Response.Redirect("GoodsView.aspx");
         }
 
+        protected void GridView2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GridViewRow row = GridView2.SelectedRow;
+            string id = row.Cells[0].Text.ToString();
+            this.Session["GoodID"] = id;
+            FastView.ImageUrl = "~/Image/" + id + ".jpg";
+            FastView.Visible = true;
+        }
 
+        protected void GridView2_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            switch (e.Row.RowType)
+            {
+                case DataControlRowType.DataRow:
+                    //放置鼠标变色
+                    e.Row.Attributes.Add("onmouseover", "c=this.style.backgroundColor;this.style.backgroundColor='#999999'");
+                    e.Row.Attributes.Add("onmouseout", "this.style.backgroundColor=c");
+                    e.Row.Attributes.Add("style", "cursor:pointer");
+                    #region
+                    PostBackOptions myPostBackOptions = new PostBackOptions(this);
+                    myPostBackOptions.AutoPostBack = false;
+                    myPostBackOptions.PerformValidation = false;
+                    myPostBackOptions.RequiresJavaScriptProtocol = true; //加入javascript:头
+                    String evt = Page.ClientScript.GetPostBackClientHyperlink(sender as GridView, "Select$" + e.Row.RowIndex.ToString());
+                    e.Row.Attributes.Add("onclick", evt);
+                    #endregion
+                    break;
+            }
+        }
+
+        protected void FastView_Click(object sender, ImageClickEventArgs e)
+        {           
+            Response.Redirect("GoodsView.aspx");
+        }
+       
     }
 }

@@ -31,10 +31,20 @@
             font-size: large;
             color: #000000;
         }
+        #form1
+        {
+            z-index: 1;
+            left: 0px;
+            top: 0px;
+            position: absolute;
+            height: 814px;
+            width: 1350px;
+        }
     </style>
 </head>
 <body style="font-size: medium" background="2.gif">
     <form id="form1" runat="server" defaultbutton="SearchButton">
+         <div>
     <div class="style2" 
         
         style="background-color: #0D7BD5; width: 1350px; margin-left: 0px; height: 50px; margin-top: 0px;">
@@ -70,7 +80,6 @@
             BorderColor="#0066FF" BorderStyle="Solid" CssClass="style4" />
         &nbsp;&nbsp;&nbsp; </span>
 &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;</div>
-         <div>
              <br />
              <br />
              <br />&nbsp;<span class="style7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -97,58 +106,86 @@
              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
              <br />
     </div>
-    <asp:GridView ID="GridView1" runat="server" AllowPaging="True" 
+        <p align="center">
+             <asp:GridView ID="GridView1" runat="server" AllowPaging="True" 
         AutoGenerateColumns="False" CellPadding="4" DataSourceID="SqlDataSource1" 
-        ForeColor="#333333" GridLines="None" Height="223px" HorizontalAlign="Center" 
-        Width="800px" 
+        ForeColor="#333333" GridLines="None" Height="16px" HorizontalAlign="Center" 
+        Width="699px" 
         onselectedindexchanged="GridView1_SelectedIndexChanged" 
-        style="text-align: center" DataKeyNames="goodnum" 
-        onrowcreated="GridView1_RowCreated" onrowdatabound="GridView1_RowDataBound1" 
-        onselectedindexchanging="GridView1_SelectedIndexChanging">
-        <AlternatingRowStyle BackColor="White" />
-        <Columns>
-            <asp:BoundField DataField="goodnum" HeaderText="商品编号" 
+        style="text-align: center" DataKeyNames="goodnum" onrowdatabound="GridView1_RowDataBound1">
+             <AlternatingRowStyle BackColor="White" />
+             <columns>
+               <asp:BoundField DataField="goodnum" HeaderText="商品编号" 
                 SortExpression="goodnum" ReadOnly="True" />
-            <asp:BoundField DataField="goodname" HeaderText="商品名称" 
+               <asp:BoundField DataField="goodname" HeaderText="商品名称" 
                 SortExpression="goodname" />
-            <asp:BoundField DataField="variety" HeaderText="商品类别" 
+               <asp:BoundField DataField="variety" HeaderText="商品类别" 
                 SortExpression="variety" />
-            <asp:BoundField DataField="description" HeaderText="商品描述" 
+               <asp:BoundField DataField="description" HeaderText="商品描述" 
                 SortExpression="description" />
-            <asp:BoundField DataField="currentprice" HeaderText="现价" 
+               <asp:BoundField DataField="currentprice" HeaderText="现价" 
                 SortExpression="currentprice" />
-        </Columns>
-        <EditRowStyle BackColor="#2461BF" />
-        <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-        <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-        <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-        <RowStyle BackColor="#EFF3FB" />
-        <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-        <SortedAscendingCellStyle BackColor="#F5F7FB" />
-        <SortedAscendingHeaderStyle BackColor="#6D95E1" />
-        <SortedDescendingCellStyle BackColor="#E9EBEF" />
-        <SortedDescendingHeaderStyle BackColor="#4870BE" />
-    </asp:GridView>
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
+             </columns>
+             <EditRowStyle BackColor="#2461BF" />
+             <footerstyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />                      
+             <headerstyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />                      
+             <pagerstyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />                      
+             <RowStyle BackColor="#EFF3FB" />
+             <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+             <SortedAscendingCellStyle BackColor="#F5F7FB" />
+             <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+             <SortedDescendingCellStyle BackColor="#E9EBEF" />
+             <SortedDescendingHeaderStyle BackColor="#4870BE" />
+           </asp:GridView>
+            
+           <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:ImageButton ID="FastView" runat="server" OnClick="FastView_Click" style="z-index: 1; left: 782px; top: 205px; position: absolute; height: 290px; width: 239px" />
+&nbsp;<asp:SqlDataSource ID="SqlDataSource1" runat="server" 
         ConnectionString="<%$ ConnectionStrings:userConnectionString %>" 
         
         
         
         
         
-        SelectCommand="SELECT goodnum, goodname, variety, description, currentprice FROM goods WHERE ((description LIKE '%' + @description + '%') AND (issaled &lt;&gt; 1 OR issaled IS NULL)) OR ((issaled &lt;&gt; 1 OR issaled IS NULL) AND (goodname LIKE '%' + @goodname + '%')) OR ( (issaled &lt;&gt; 1 OR issaled IS NULL) AND (variety LIKE '%' + @variety + '%')) ORDER BY goodname, variety, description" 
-        onselecting="SqlDataSource1_Selecting">
-        <SelectParameters>
-            <asp:ControlParameter ControlID="SearchBox" Name="description" 
+        SelectCommand="SELECT goodnum, goodname, variety, description, currentprice FROM goods WHERE ((description LIKE '%' + @description + '%') AND (issaled &lt;&gt; 1 OR issaled IS NULL)) OR ((issaled &lt;&gt; 1 OR issaled IS NULL) AND (goodname LIKE '%' + @goodname + '%')) OR ( (issaled &lt;&gt; 1 OR issaled IS NULL) AND (variety LIKE '%' + @variety + '%')) ORDER BY goodname, variety, description">
+             <SelectParameters>
+               <asp:ControlParameter ControlID="SearchBox" Name="description" 
                 PropertyName="Text" />
-            <asp:ControlParameter ControlID="SearchBox" Name="goodname" 
+               <asp:ControlParameter ControlID="SearchBox" Name="goodname" 
                 PropertyName="Text" />
-            <asp:ControlParameter ControlID="SearchBox" Name="variety" 
+               <asp:ControlParameter ControlID="SearchBox" Name="variety" 
                 PropertyName="Text" />
-        </SelectParameters>
-    </asp:SqlDataSource>
-    <p>
-        &nbsp;</p>
+             </SelectParameters>
+          </asp:SqlDataSource>
+           <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:userConnectionString %>" SelectCommand="SELECT GETDATE() AS Expr1, goodnum, mail, description, currentprice, goodname FROM goods WHERE (issaled &lt;&gt; 1) AND (deadline &gt; GETDATE()) OR (issaled IS NULL)">
+             </asp:SqlDataSource>
+      </p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:GridView ID="GridView2" runat="server" AllowPaging="True" 
+        AutoGenerateColumns="False" CellPadding="4" DataSourceID="SqlDataSource2" 
+        ForeColor="#333333" GridLines="None" Height="16px" HorizontalAlign="Center" 
+        onselectedindexchanged="GridView2_SelectedIndexChanged" 
+        style="text-align: center; z-index: 1; left: 81px; top: 203px; position: absolute; height: 294px; width: 535px;" DataKeyNames="goodnum" onrowdatabound="GridView1_RowDataBound1">
+             <AlternatingRowStyle BackColor="White" />
+             <Columns>
+                 <asp:BoundField DataField="goodnum" HeaderText="商品编号" ReadOnly="True" SortExpression="goodnum" />
+                 <asp:BoundField DataField="goodname" HeaderText="商品名称" SortExpression="goodname" />
+                 <asp:BoundField DataField="mail" HeaderText="卖家" SortExpression="mail" />
+                 <asp:BoundField DataField="description" HeaderText="描述" SortExpression="description" />
+                 <asp:BoundField DataField="currentprice" HeaderText="现价" SortExpression="currentprice" />
+             </Columns>
+             <EditRowStyle BackColor="#2461BF" />
+             <footerstyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />                      
+             <headerstyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />                      
+             <pagerstyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />                      
+             <RowStyle BackColor="#EFF3FB" />
+             <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+             <SortedAscendingCellStyle BackColor="#F5F7FB" />
+             <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+             <SortedDescendingCellStyle BackColor="#E9EBEF" />
+             <SortedDescendingHeaderStyle BackColor="#4870BE" />
+           </asp:GridView>
+            
+        </p>
     </form>
 </body>
 </html>
